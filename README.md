@@ -18,7 +18,7 @@
 ## Architecture Diagram
 ```mermaid
 flowchart TD
-    A[GitHub API (REST/GraphQL)] --> B[Backend Service]
+    A[GitHub API] --> B[Backend Service]
     B --> C[Resume JSON Schema]
     C --> D[HTML Renderer]
     C --> F[LLM Summarizer]
