@@ -1,0 +1,57 @@
+<!-- backend/app/render/templates/ui.html -->
+<div id="basics">
+  <h1>{{ resume.basics.name }}</h1>
+  <h2>{{ resume.basics.label }}</h2>
+  <p>{{ resume.basics.summary }}</p>
+  {% if resume.basics.image %}
+    <img src="{{ resume.basics.image }}" alt="Profile Image">
+  {% endif %}
+</div>
+
+<div id="work">
+  {% for work in resume.work %}
+    <div class="work-item">
+      <h3>{{ work.position }} - {{ work.name }}</h3>
+      <p>{{ work.summary }}</p>
+      {% if work.image %}
+        <img src="{{ work.image }}" alt="{{ work.name }} logo">
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<div id="projects">
+  {% for project in resume.projects %}
+    <div class="project-item">
+      <h3>{{ project.name }}</h3>
+      <p>{{ project.description }}</p>
+      <a href="{{ project.url }}">{{ project.url }}</a>
+      {% if project.image %}
+        <img src="{{ project.image }}" alt="{{ project.name }} image">
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<div id="education">
+  {% for edu in resume.education %}
+    <div class="education-item">
+      <h3>{{ edu.institution }}</h3>
+      <p>{{ edu.area }}</p>
+      {% if edu.image %}
+        <img src="{{ edu.image }}" alt="{{ edu.institution }} logo">
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<div id="skills">
+  <ul>
+  {% for skill in resume.skills %}
+    <li>{{ skill.name }} - {{ skill.level }}</li>
+    {% if skill.image %}
+      <img src="{{ skill.image }}" alt="{{ skill.name }} logo">
+    {% endif %}
+  {% endfor %}
+  </ul>
+</div>

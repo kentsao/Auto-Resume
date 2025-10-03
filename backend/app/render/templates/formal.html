@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ resume.basics.name }} - Resume</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 1.5rem; color: #222; }
+    h1 { font-size: 28px; margin-bottom: 0; }
+    h2 { font-size: 20px; margin-top: 0; color: #555; }
+    h3 { font-size: 16px; margin: 0.2rem 0; }
+    .header { display: flex; align-items: center; margin-bottom: 1rem; }
+    .header img { border-radius: 50%; max-width: 100px; margin-left: 1rem; }
+    .section { margin-bottom: 1.5rem; }
+    .section-title { font-weight: bold; font-size: 18px; border-bottom: 1px solid #333; margin-bottom: 0.5rem; padding-bottom: 0.2rem; }
+    .row { display: flex; flex-wrap: wrap; }
+    .col { flex: 1; min-width: 200px; padding-right: 1rem; }
+    .item img { max-width: 60px; vertical-align: middle; margin-left: 0.5rem; }
+    ul { list-style-type: none; padding-left: 0; }
+    li { margin-bottom: 0.2rem; }
+    a { color: #1a0dab; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h1>{{ resume.basics.name }}</h1>
+      <h2>{{ resume.basics.label }}</h2>
+      <p>{{ resume.basics.summary }}</p>
+      <p>Email: {{ resume.basics.email }}</p>
+      <p>Website: <a href="{{ resume.basics.website }}">{{ resume.basics.website }}</a></p>
+    </div>
+    {% if resume.basics.image %}
+      <img src="{{ resume.basics.image }}" alt="Profile Image">
+    {% endif %}
+  </div>
+
+  <!-- WORK EXPERIENCE -->
+  {% if resume.work %}
+  <div class="section" id="work">
+    <div class="section-title">Work Experience</div>
+    {% for work in resume.work %}
+      <div class="row item">
+        <div class="col">
+          <h3>{{ work.position }} - {{ work.name }}</h3>
+          <p>{{ work.startDate }} to {{ work.endDate }}</p>
+          <p>{{ work.summary }}</p>
+        </div>
+        {% if work.image %}
+          <div class="col">
+            <img src="{{ work.image }}" alt="{{ work.name }} logo">
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- PROJECTS -->
+  {% if resume.projects %}
+  <div class="section" id="projects">
+    <div class="section-title">Projects</div>
+    {% for project in resume.projects %}
+      <div class="row item">
+        <div class="col">
+          <h3>{{ project.name }}</h3>
+          <p>{{ project.startDate }} to {{ project.endDate }}</p>
+          <p>{{ project.description }}</p>
+          <a href="{{ project.url }}">{{ project.url }}</a>
+        </div>
+        {% if project.image %}
+          <div class="col">
+            <img src="{{ project.image }}" alt="{{ project.name }} image">
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- EDUCATION -->
+  {% if resume.education %}
+  <div class="section" id="education">
+    <div class="section-title">Education</div>
+    {% for edu in resume.education %}
+      <div class="row item">
+        <div class="col">
+          <h3>{{ edu.institution }}</h3>
+          <p>{{ edu.area }}</p>
+          <p>{{ edu.startDate }} to {{ edu.endDate }}</p>
+        </div>
+        {% if edu.image %}
+          <div class="col">
+            <img src="{{ edu.image }}" alt="{{ edu.institution }} logo">
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- SKILLS -->
+  {% if resume.skills %}
+  <div class="section" id="skills">
+    <div class="section-title">Skills</div>
+    <ul>
+      {% for skill in resume.skills %}
+        <li>{{ skill.name }} - {{ skill.level }}
+          {% if skill.image %}
+            <img src="{{ skill.image }}" alt="{{ skill.name }} logo">
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+</body>
+</html>
