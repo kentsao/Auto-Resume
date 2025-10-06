@@ -13,7 +13,7 @@ def mock_github_api():
     username = "kentsao"
     user_data = {
         "login": username,
-        "name": "Kent Sao",
+        "name": "Ken Tsao",
         "bio": "Backend engineer",
         "avatar_url": "https://example.com/kentsao.jpg",
         "html_url": f"https://github.com/{username}",
@@ -40,13 +40,13 @@ def mock_github_api():
 def test_generate_resume_ui(mock_github_api):
     response = client.get("/generate/kentsao/ui")
     assert response.status_code == 200
-    assert "Kent Sao" in response.text
+    assert "Ken Tsao" in response.text
     assert "auto-resume" in response.text
 
 def test_generate_resume_formal(mock_github_api):
     response = client.get("/generate/kentsao/formal")
     assert response.status_code == 200
-    assert "Kent Sao" in response.text
+    assert "Ken Tsao" in response.text
     assert "auto-resume" in response.text
 
 def test_generate_resume_pdf(mock_github_api):
