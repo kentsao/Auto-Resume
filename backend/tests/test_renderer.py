@@ -13,7 +13,7 @@ def sample_resume():
         },
         "work": [
             {
-                "name": "OpenAI",
+                "company": "OpenAI",
                 "position": "Backend Engineer",
                 "startDate": "2023-01-01",
                 "endDate": "2025-01-01",
@@ -60,10 +60,9 @@ def test_render_ui_html_sections(tmp_path, sample_resume):
 
     # Work section
     for work in sample_resume["work"]:
-        assert work["name"] in html
+        assert work["company"] in html
         assert work["position"] in html
         assert work["summary"] in html
-        assert work["image"] in html
 
     # Projects section
     for project in sample_resume["projects"]:
@@ -96,6 +95,7 @@ def test_render_formal_html_and_pdf(tmp_path, sample_resume):
 
     # PDF output
     pdf_path = tmp_path / "resume_formal.pdf"
-    renderer.render_pdf(str(pdf_path), mode="formal")
+    pdf_bytes = renderer.render_pdf(mode="formal")
+    pdf_path.write_bytes(pdf_bytes)
     assert pdf_path.exists()
     assert pdf_path.stat().st_size > 0

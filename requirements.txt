@@ -22,3 +22,5 @@ typing-inspection==0.4.1
 typing_extensions==4.15.0
 uvicorn==0.37.0
 wheel==0.45.1
+WeasyPrint==62.4
+Jinja2==3.1.4

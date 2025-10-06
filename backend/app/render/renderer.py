@@ -15,6 +15,6 @@ class ResumeRenderer:
         template = self.env.get_template(template_file)
         return template.render(resume=self.resume)
 
-    def render_pdf(self, output_path: str, mode="formal"):
+    def render_pdf(self, mode="formal") -> bytes:
         html_content = self.render_html(mode=mode)
-        HTML(string=html_content).write_pdf(output_path)
+        return HTML(string=html_content).write_pdf()

@@ -13,7 +13,7 @@ def sample_resume():
         },
         "work": [
             {
-                "name": "OpenAI",
+                "company": "OpenAI",
                 "position": "Backend Engineer",
                 "startDate": "2023-01-01",
                 "endDate": "2025-01-01",
@@ -68,6 +68,7 @@ def test_render_formal_pdf_and_html(tmp_path, sample_resume):
 
     # PDF output
     pdf_path = tmp_path / "resume_formal.pdf"
-    renderer.render_pdf(str(pdf_path), mode="formal")
+    pdf_bytes = renderer.render_pdf(mode="formal")
+    pdf_path.write_bytes(pdf_bytes)
     assert pdf_path.exists()
     assert pdf_path.stat().st_size > 0
