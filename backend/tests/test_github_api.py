@@ -10,14 +10,15 @@ pytestmark = pytest.mark.asyncio
 
 @respx.mock
 async def test_generate_resume_from_github_with_token():
-    """Test that generate_resume_from_github correctly calls the GitHub API with a token."""
+    """Test that generate_resume_from_github correctly calls the GitHub API with a token and maps data correctly."""
     username = "johndoe"
     token = "test_token"
+    mock_bio = "Backend engineer"
 
     user_route = respx.get(f"{GITHUB_API_URL}/users/{username}").mock(return_value=Response(200, json={
         "login": "johndoe",
         "name": "John Doe",
-        "bio": "Backend engineer",
+        "bio": mock_bio,
         "avatar_url": "https://example.com/john.jpg",
         "html_url": "https://github.com/johndoe",
         "email": "johndoe@example.com",
@@ -34,7 +35,7 @@ async def test_generate_resume_from_github_with_token():
     ]))
     languages_route = respx.get(f"{GITHUB_API_URL}/repos/johndoe/auto-resume/languages").mock(return_value=Response(200, json={"Python": 123, "JavaScript": 456}))
 
-    await generate_resume_from_github(username, token=token)
+    resume_data = await generate_resume_from_github(username, token=token)
 
     assert user_route.called
     assert repos_route.called
@@ -43,15 +44,20 @@ async def test_generate_resume_from_github_with_token():
     assert repos_route.calls.last.request.headers["authorization"] == f"token {token}"
     assert languages_route.calls.last.request.headers["authorization"] == f"token {token}"
 
+    # Verify the bio to summary mapping
+    assert "basics" in resume_data
+    assert resume_data["basics"]["summary"] == mock_bio
+
 @respx.mock
 async def test_generate_resume_from_github_without_token():
-    """Test that generate_resume_from_github correctly calls the GitHub API without a token."""
+    """Test that generate_resume_from_github correctly calls the GitHub API without a token and maps data correctly."""
     username = "johndoe"
+    mock_bio = "Backend engineer"
 
     user_route = respx.get(f"{GITHUB_API_URL}/users/{username}").mock(return_value=Response(200, json={
         "login": "johndoe",
         "name": "John Doe",
-        "bio": "Backend engineer",
+        "bio": mock_bio,
         "avatar_url": "https://example.com/john.jpg",
         "html_url": "https://github.com/johndoe",
         "email": "johndoe@example.com",
@@ -68,7 +74,7 @@ async def test_generate_resume_from_github_without_token():
     ]))
     languages_route = respx.get(f"{GITHUB_API_URL}/repos/johndoe/auto-resume/languages").mock(return_value=Response(200, json={"Python": 123, "JavaScript": 456}))
 
-    await generate_resume_from_github(username)
+    resume_data = await generate_resume_from_github(username)
 
     assert user_route.called
     assert repos_route.called
@@ -76,3 +82,7 @@ async def test_generate_resume_from_github_without_token():
     assert "authorization" not in user_route.calls.last.request.headers
     assert "authorization" not in repos_route.calls.last.request.headers
     assert "authorization" not in languages_route.calls.last.request.headers
+
+    # Verify the bio to summary mapping
+    assert "basics" in resume_data
+    assert resume_data["basics"]["summary"] == mock_bio
