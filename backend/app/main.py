@@ -1,10 +1,22 @@
 # backend/app/main.py
+import json
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse, Response
 from backend.app.render.renderer import ResumeRenderer
 from backend.app.github_client.github_api import generate_resume_from_github
 
 app = FastAPI()
+
+@app.get("/test/ui", response_class=HTMLResponse)
+async def test_resume_ui():
+    """Render the ui.html template with sample data for testing."""
+    try:
+        with open("backend/tests/sample_resume.json") as f:
+            resume_data = json.load(f)
+        renderer = ResumeRenderer(resume_data)
+        return renderer.render_html(mode="ui")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/generate/{username}/ui", response_class=HTMLResponse)
 async def generate_resume_ui(username: str, token: str = None):
