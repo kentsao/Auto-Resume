@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ resume.basics.name }} - Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333333;
+            font-size: 11pt;
+            line-height: 1.4;
+        }
+
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 210mm;
+            padding: 0;
+            margin: 0 auto;
+            background: white;
+        }
+
+        a {
+            color: #2c5282;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #eeeeee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28pt;
+            font-weight: 700;
+            margin: 0;
+            color: #2d3748;
+        }
+
+        .header .label {
+            font-size: 14pt;
+            font-weight: 400;
+            color: #4a5568;
+            margin-top: 5px;
+        }
+
+        .header .contact-info {
+            margin-top: 10px;
+            font-size: 10pt;
+            color: #718096;
+        }
+
+        .header .contact-info a {
+            margin: 0 10px;
+            color: #4a5568;
+        }
+
+        .summary {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 11pt;
+            color: #4a5568;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: 700;
+            color: #2d3748;
+            border-bottom: 1px solid #dddddd;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .item {
+            margin-bottom: 15px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            width: 100%;
+        }
+
+        .item-header h3 {
+            font-size: 12pt;
+            font-weight: 700;
+            margin: 0;
+            color: #2c5282;
+        }
+
+        .item-header .date {
+            font-size: 10pt;
+            font-weight: 400;
+            color: #718096;
+        }
+
+        .item .sub-header {
+            font-weight: 700;
+            font-size: 11pt;
+            margin: 2px 0;
+            color: #4a5568;
+        }
+
+        .item .summary-text {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .item ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 5px 0 0 0;
+        }
+
+        .item li {
+            margin-bottom: 4px;
+        }
+
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            columns: 2;
+        }
+
+        .skills-list li {
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        .skills-list span {
+            font-weight: 400;
+            color: #4a5568;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <h1>{{ resume.basics.name }}</h1>
+            <div class="label">{{ resume.basics.label }}</div>
+            <div class="contact-info">
+                <a href="mailto:{{ resume.basics.email }}">{{ resume.basics.email }}</a>
+                {% if resume.basics.phone %}| {{ resume.basics.phone }} {% endif %}
+                {% if resume.basics.url %}| <a href="{{ resume.basics.url }}">{{ resume.basics.url }}</a>{% endif %}
+            </div>
+        </div>
+
+        {% if resume.basics.summary %}
+        <div class="summary">
+            <p>{{ resume.basics.summary }}</p>
+        </div>
+        {% endif %}
+
+        {% if resume.work %}
+        <div class="section" id="work">
+            <div class="section-title">Work Experience</div>
+            {% for work in resume.work %}
+            <div class="item">
+                <div class="item-header">
+                    <h3>{{ work.position }}</h3>
+                    <span class="date">{{ work.startDate }} - {{ work.endDate }}</span>
+                </div>
+                <div class="sub-header">{{ work.company }}</div>
+                <p class="summary-text">{{ work.summary }}</p>
+                {% if work.highlights %}
+                <ul>
+                    {% for highlight in work.highlights %}
+                    <li>{{ highlight }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if resume.projects %}
+        <div class="section" id="projects">
+            <div class="section-title">Projects</div>
+            {% for project in resume.projects %}
+            <div class="item">
+                <div class="item-header">
+                    <h3>{{ project.name }}</h3>
+                    {% if project.startDate %}
+                    <span class="date">{{ project.startDate }} - {{ project.endDate }}</span>
+                    {% endif %}
+                </div>
+                <p class="summary-text">{{ project.description }}</p>
+                {% if project.highlights %}
+                <ul>
+                    {% for highlight in project.highlights %}
+                    <li>{{ highlight }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if resume.skills %}
+        <div class="section" id="skills">
+            <div class="section-title">Skills</div>
+            <ul class="skills-list">
+                {% for skill in resume.skills %}
+                <li>{{ skill.name }} - <span>{{ skill.level }}</span></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if resume.education %}
+        <div class="section" id="education">
+            <div class="section-title">Education</div>
+            {% for edu in resume.education %}
+            <div class="item">
+                <div class="item-header">
+                    <h3>{{ edu.institution }}</h3>
+                    <span class="date">{{ edu.startDate }} - {{ edu.endDate }}</span>
+                </div>
+                <div class="sub-header">{{ edu.studyType }} in {{ edu.area }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+</body>
+</html>

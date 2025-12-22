@@ -1,0 +1,66 @@
+{
+  "basics": {
+    "name": "John Doe",
+    "label": "Software Engineer",
+    "email": "john.doe@example.com",
+    "phone": "+1 234 567 890",
+    "url": "https://johndoe.dev",
+    "summary": "Passionate software engineer with experience in building scalable web applications and APIs.",
+    "location": {
+      "city": "San Francisco",
+      "region": "CA",
+      "country": "USA"
+    },
+    "image": "https://via.placeholder.com/150"
+  },
+  "work": [
+    {
+      "company": "Tech Corp",
+      "position": "Backend Developer",
+      "website": "https://techcorp.com",
+      "startDate": "2021-01-01",
+      "endDate": "2023-01-01",
+      "summary": "Worked on microservices and API design.",
+      "highlights": ["Designed scalable REST APIs", "Improved CI/CD pipeline"],
+      "image": "https://via.placeholder.com/150"
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Example",
+      "area": "Computer Science",
+      "studyType": "Bachelor",
+      "startDate": "2016-09-01",
+      "endDate": "2020-06-01",
+      "gpa": "3.8",
+      "courses": ["Algorithms", "Databases", "Distributed Systems"],
+      "image": "https://via.placeholder.com/150"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Python",
+      "level": "Advanced",
+      "keywords": ["FastAPI", "Flask", "Django"],
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "JavaScript",
+      "level": "Intermediate",
+      "keywords": ["React", "Node.js"],
+      "image": "https://via.placeholder.com/150"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Auto Resume",
+      "description": "An automatic resume generator from GitHub profile.",
+      "url": "https://github.com/johndoe/auto-resume",
+      "highlights": ["Integrated GitHub API", "Supports JSON Schema validation"],
+      "startDate": "2025-09-01",
+      "endDate": "2025-10-01",
+      "roles": ["Lead Developer"],
+      "image": "https://via.placeholder.com/150"
+    }
+  ]
+}

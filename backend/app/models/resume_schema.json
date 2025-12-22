@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft/2020-12/schema",
+  "title": "Resume",
+  "type": "object",
+  "required": ["basics", "work", "education", "skills", "projects"],
+  "properties": {
+    "basics": {
+      "type": "object",
+      "required": ["name", "label", "email"],
+      "properties": {
+        "name": { "type": "string" },
+        "label": { "type": "string" },
+        "image": { "type": "string", "format": "uri" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "summary": { "type": "string" },
+        "location": {
+          "type": "object",
+          "properties": {
+            "address": { "type": "string" },
+            "postalCode": { "type": "string" },
+            "city": { "type": "string" },
+            "countryCode": { "type": "string" },
+            "region": { "type": "string" }
+          }
+        },
+        "profiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "network": { "type": "string" },
+              "username": { "type": "string" },
+              "url": { "type": "string", "format": "uri" },
+              "image": { "type": "string", "format": "uri" }
+            }
+          }
+        }
+      }
+    },
+    "work": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["company", "position", "startDate"],
+        "properties": {
+          "company": { "type": "string" },
+          "position": { "type": "string" },
+          "image": { "type": "string", "format": "uri" },
+          "url": { "type": "string", "format": "uri" },
+          "startDate": { "type": "string", "format": "date" },
+          "endDate": { "type": ["string", "null"], "format": "date" },
+          "summary": { "type": "string" },
+          "highlights": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["institution", "studyType", "area", "startDate"],
+        "properties": {
+          "institution": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "area": { "type": "string" },
+          "studyType": { "type": "string" },
+          "startDate": { "type": "string", "format": "date" },
+          "endDate": { "type": ["string", "null"], "format": "date" },
+          "score": { "type": "string" },
+          "courses": { "type": "array", "items": { "type": "string" } },
+          "image": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "level": { "type": "string", "enum": ["Beginner","Intermediate","Advanced","Expert"] },
+          "keywords": { "type": "array", "items": { "type": "string" } },
+          "image": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "image": { "type": "string", "format": "uri" },
+          "url": { "type": "string", "format": "uri" },
+          "startDate": { "type": ["string","null"], "format": "date" },
+          "endDate": { "type": ["string","null"], "format": "date" },
+          "keywords": { "type": "array", "items": { "type": "string" } },
+          "roles": { "type": "array", "items": { "type": "string" } },
+          "highlights": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}
