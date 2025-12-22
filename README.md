@@ -125,32 +125,6 @@ npm install
 ```bash
 npm run dev
 ```
-# - GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET (from https://github.com/settings/developers)
-# - GEMINI_API_KEY (optional, from https://makersuite.google.com/app/apikey)
-# - JWT_SECRET_KEY (generate a random string)
-```
-
-4. **Run the backend**
-```bash
-uvicorn backend.app.main:app --reload
-```
-
-### Frontend Setup
-
-1. **Navigate to frontend directory**
-```bash
-cd frontend
-```
-
-2. **Install dependencies**
-```bash
-npm install
-```
-
-3. **Run the frontend**
-```bash
-npm run dev
-```
 
 4. **Access the application**
 - Open http://localhost:5173 in your browser.
