@@ -1,3 +1,12 @@
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# Environment variables
+.env
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -207,4 +216,4 @@ marimo/_lsp/
 __marimo__/
 
 # Project-specific ignores
-/backend/app/db/
+/backend/app/db/.DS_Store

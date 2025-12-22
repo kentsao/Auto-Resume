@@ -4,14 +4,20 @@
 
 ---
 
-## Features (Planned)
-- 🔗 Connect to GitHub (REST + GraphQL support in future)
-- 📊 Extract repositories, contributions, and activities
-- 📝 Store resume data in JSON schema
-- 🌐 Generate **HTML resume** for browser display
-- 📄 Export **PDF resume** for sharing
-- 🤖 Summarize projects & bio with **LLM API**
-- ☁️ Deployment to cloud platforms
+## Features
+- ✅ **GitHub Integration** – Connect via REST API to fetch repos, contributions, and user profiles
+- ✅ **OAuth Authentication** – Secure GitHub OAuth2 flow for accessing private repositories
+- ✅ **Multiple Output Formats**:
+  - 📱 Interactive UI (real-time preview)
+  - � Formal HTML (professional layout)
+  - 📋 PDF export (download-ready)
+- ✅ **LLM Summarization** – Optional AI-powered project and bio summarization using Google Gemini
+- ✅ **Data Normalization** – Maps GitHub data to structured resume JSON schema
+- ✅ **Comprehensive Testing** – 41+ unit tests with full async support
+- ✅ **JWT Authentication** – Secure session management with JWT tokens
+- 🚧 **Coming Soon**:
+  - Cloud deployment (K8s/Terraform)
+  - GraphQL support
 
 ---
 
@@ -57,8 +63,157 @@ Here’s the planned set of tasks and estimated days to finish each milestone fo
 
 ## Tech Stack
 
-* **Backend**: FastAPI + Python
-* **Database**: SQLite (for prototyping)
-* **Frontend/Render**: Jinja2 / HTML templates
-* **PDF Export**: WeasyPrint / ReportLab
-* **LLM API**: OpenAI / Anthropic / others
+* **Backend**: FastAPI + Python (async/await)
+* **Authentication**: GitHub OAuth2 + JWT
+* **Frontend**: React + Vite + Tailwind CSS
+* **PDF Export**: WeasyPrint
+* **LLM API**: Google Generativeai (Gemini)
+* **Testing**: pytest + pytest-asyncio
+* **Infrastructure**: Terraform + Kubernetes (planned)
+
+---
+
+## Quick Start
+
+### Prerequisites
+- Python 3.8+
+- Node.js 18+
+- GitHub account
+- Google Gemini API key (optional, for LLM summarization)
+
+### Backend Setup
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/kentsao/Auto-Resume.git
+cd Auto-Resume
+```
+
+2. **Install backend dependencies**
+```bash
+pip install -r requirements.txt
+```
+
+3. **Set up environment variables**
+```bash
+cp .env.example .env
+# Edit .env with your credentials:
+# GITHUB_CLIENT_ID=...
+# GITHUB_CLIENT_SECRET=...
+# GEMINI_API_KEY=...
+# SECRET_KEY=...
+```
+
+4. **Run the backend server**
+```bash
+uvicorn backend.app.main:app --reload
+```
+
+### Frontend Setup
+
+1. **Navigate to frontend directory**
+```bash
+cd frontend
+```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Run development server**
+```bash
+npm run dev
+```
+# - GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET (from https://github.com/settings/developers)
+# - GEMINI_API_KEY (optional, from https://makersuite.google.com/app/apikey)
+# - JWT_SECRET_KEY (generate a random string)
+```
+
+4. **Run the backend**
+```bash
+uvicorn backend.app.main:app --reload
+```
+
+### Frontend Setup
+
+1. **Navigate to frontend directory**
+```bash
+cd frontend
+```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Run the frontend**
+```bash
+npm run dev
+```
+
+4. **Access the application**
+- Open http://localhost:5173 in your browser.
+
+### API Endpoints
+
+| Endpoint | Description |
+|----------|-------------|
+| `GET /auth/github/login` | Initiate GitHub OAuth flow |
+| `GET /auth/github/callback` | OAuth callback handler |
+| `GET /generate/{username}/ui` | Generate interactive UI resume |
+| `GET /generate/{username}/formal` | Generate formal HTML resume |
+| `GET /generate/{username}/pdf` | Generate PDF resume |
+| `GET /generate/{username}/summarized` | Generate resume with LLM summarization |
+| `GET /test/ui` | Test with sample data |
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest backend/tests/
+
+# Run specific test file
+pytest backend/tests/test_github_oauth.py
+
+# Run with coverage
+pytest --cov=backend backend/tests/
+```
+
+---
+
+## Development Progress
+
+| Task | Status |
+|------|--------|
+| GitHub REST API Client | ✅ Complete |
+| Data Normalization | ✅ Complete |
+| HTML/PDF Rendering | ✅ Complete |
+| LLM Integration (Gemini) | ✅ Complete |
+| GitHub OAuth2 | ✅ Complete |
+| Unit Tests (41 tests) | ✅ Complete |
+| JWT Session Management | ✅ Complete |
+| Frontend (React + Vite) | ✅ Complete |
+| Cloud Deployment | 🚧 Planned |
+
+---
+
+## Project Structure
+
+```
+Auto-Resume/
+├── backend/
+│   ├── app/
+│   │   ├── auth/           # GitHub OAuth
+│   │   ├── db/             # Database models (future)
+│   │   ├── github_client/  # GitHub API client
+│   │   ├── llm/            # LLM summarizer
+│   │   ├── models/         # Resume schema
+│   │   ├── normalizer/     # Data normalization
+│   │   ├── render/         # HTML/PDF renderer
+│   │   └── main.py         # FastAPI app
+│   └── tests/              # Unit tests
+├── requirements.txt
+├── .env.example
+└── README.md
+```
